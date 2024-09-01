@@ -31,13 +31,46 @@ document.addEventListener('DOMContentLoaded', (event) => {
             }
         }
     }
+
+    // Define a list of dark color themes
+    const colorThemes = [
+        '#4A90E2', // Blue
+        '#50E3C2', // Teal
+        '#B8E986', // Light Green
+        '#F5A623', // Orange
+        '#D0021B', // Red
+        '#BD10E0', // Purple
+        '#7ED321', // Green
+        '#FFB74D', // Light Orange
+        '#FF4081', // Pink
+        '#00BCD4', // Cyan
+    ];
+    
+    // Function to get a random color from the list
+    function getRandomColor() {
+        const randomIndex = Math.floor(Math.random() * colorThemes.length);
+        return colorThemes[randomIndex];
+    }
+    
+    // Store user colors in localStorage or another method
+    function getUserColor(userName) {
+        let userColor = localStorage.getItem(`color_${userName}`);
+        if (!userColor) {
+            userColor = getRandomColor();
+            localStorage.setItem(`color_${userName}`, userColor);
+        }
+        return userColor;
+    }
+
     
     // Function to display messages
     function displayMessages(messages) {
         messagesDiv.innerHTML = '';
         messages.forEach(message => {
+            const userColor = getUserColor(message.user_name || 'Anonymous');
             const messageElement = document.createElement('div');
             messageElement.className = 'message';
+            messageElement.style.backgroundColor = userColor; // Apply user-specific color
             messageElement.innerHTML = `
                 <div class="content">${message.content}</div>
                 <div class="details">By ${message.user_name || 'Anonymous'} on ${new Date(message.created_at).toLocaleString()}</div>
