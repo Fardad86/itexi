@@ -39,3 +39,22 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+
+#messages {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.message {
+    margin-bottom: 10px;
+}
+
+.message .content {
+    font-weight: bold;
+}
+
+.message .details {
+    font-size: 0.8em;
+    color: gray;
+}
+
