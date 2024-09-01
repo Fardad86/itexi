@@ -55,20 +55,21 @@ button:hover {
 .message {
     margin-bottom: 15px;
     padding: 10px;
-    background: #2c2c2c; /* Dark background for individual messages */
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Subtle shadow for messages */
+    color: #e0e0e0; /* Light text color */
 }
 
+/* Ensure the text color is readable on different backgrounds */
 .message .content {
     font-weight: bold;
-    color: #e0e0e0; /* Light text color */
 }
 
 .message .details {
     font-size: 0.8em;
     color: #aaa; /* Lighter gray for details */
 }
+
 
 /* Responsive design for mobile */
 @media (max-width: 768px) {
