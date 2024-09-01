@@ -32,20 +32,20 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
     }
 
-    // Define a list of dark color themes
+    // Define a list of darker color themes
     const colorThemes = [
-        '#4A90E2', // Blue
-        '#50E3C2', // Teal
-        '#B8E986', // Light Green
-        '#F5A623', // Orange
-        '#D0021B', // Red
-        '#BD10E0', // Purple
-        '#7ED321', // Green
-        '#FFB74D', // Light Orange
-        '#FF4081', // Pink
-        '#00BCD4', // Cyan
+        '#333333', // Very Dark Gray
+        '#4f4f4f', // Dark Gray
+        '#5c5c5c', // Gray
+        '#6e6e6e', // Slightly Lighter Gray
+        '#7d7d7d', // Light Gray
+        '#8a8a8a', // Pale Gray
+        '#999999', // Very Light Gray
+        '#a6a6a6', // Lighter Gray
+        '#b3b3b3', // Very Light Gray
+        '#c0c0c0', // Light Gray
     ];
-    
+        
     // Function to get a random color from the list
     function getRandomColor() {
         const randomIndex = Math.floor(Math.random() * colorThemes.length);
