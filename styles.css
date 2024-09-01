@@ -1,12 +1,18 @@
 /* Base styling */
 body {
-    font-family: 'Vazir', sans-serif; /* Default font for Persian text */
+    font-family: 'Roboto', sans-serif;
     background-color: #121212; /* Dark background for dark mode */
     color: #e0e0e0; /* Light text color for better readability */
     margin: 0;
     padding: 0;
 }
 
+/* For Persian (RTL) text */
+body, .message {
+    font-family: 'Vazir', sans-serif;
+}
+
+/* Container styling */
 .container {
     max-width: 600px;
     margin: 20px auto;
@@ -51,8 +57,7 @@ button:hover {
     box-shadow: 0 0 10px rgba(0, 0, 255, 0.5); /* Blue glow on hover */
 }
 
-/* Updated styling for messages */
-/* Updated styling for messages with RTL support */
+/* Styling for messages */
 .message {
     margin-bottom: 15px;
     padding: 10px;
@@ -61,6 +66,7 @@ button:hover {
     color: #e0e0e0; /* Light text color */
     text-align: right; /* Align text to the right for RTL languages */
     direction: rtl; /* Ensure correct direction for RTL languages */
+    font-family: 'Vazir', sans-serif; /* Persian font */
 }
 
 .message .content {
@@ -73,7 +79,6 @@ button:hover {
     color: #aaa; /* Lighter gray for details */
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8); /* Shadow for better text readability */
 }
-
 
 /* Responsive design for mobile */
 @media (max-width: 768px) {
