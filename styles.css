@@ -1,6 +1,6 @@
 /* Base styling */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Vazir', sans-serif; /* Default font for Persian text */
     background-color: #121212; /* Dark background for dark mode */
     color: #e0e0e0; /* Light text color for better readability */
     margin: 0;
