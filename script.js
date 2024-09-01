@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     
     // Initial fetch
     fetchMessages();
-}
+});
 
 // // Initialize Supabase
 // const supabaseUrl = 'https://agglftunrhwbmqgupuxr.supabase.co';
