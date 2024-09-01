@@ -34,16 +34,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     // Define a list of darker color themes
     const colorThemes = [
-        '#333333', // Very Dark Gray
-        '#4f4f4f', // Dark Gray
-        '#5c5c5c', // Gray
-        '#6e6e6e', // Slightly Lighter Gray
-        '#7d7d7d', // Light Gray
-        '#8a8a8a', // Pale Gray
-        '#999999', // Very Light Gray
-        '#a6a6a6', // Lighter Gray
-        '#b3b3b3', // Very Light Gray
-        '#c0c0c0', // Light Gray
+        '#340c04', // red
+        '#113b05', // green
+        '#053b3b', // light blue
+        '#05073b', // dark blue
+        '#34053b', // purple
+        '#3b3305', // yellow
+        '#292929', // gray
     ];
         
     // Function to get a random color from the list
