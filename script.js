@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const sendMessageBtn = document.getElementById('send-message');
     const messageInput = document.getElementById('message-input');
     const userNameInput = document.getElementById('user-name');
+    const imageInput = document.getElementById('image-input');
     
     let lastFetchedMessageId = null;
     
@@ -88,34 +89,37 @@ document.addEventListener('DOMContentLoaded', (event) => {
     function displayMessages(messages) {
         messagesDiv.innerHTML = '';
         messages.forEach(message => {
-            const userColor = getUserColor(message.user_name || 'Anonymous');
             const messageElement = document.createElement('div');
-            messageElement.className = 'message';
-            messageElement.style.backgroundColor = userColor; // Apply user-specific color
+            messageElement.classList.add('message');
+            messageElement.style.color = userColorMap[message.user_name] || '#ffffff';
+            
             messageElement.innerHTML = `
                 <div class="content">${message.content}</div>
-                <div class="details">By ${message.user_name || 'Anonymous'} on ${new Date(message.created_at).toLocaleString()}</div>
+                <div class="details">${message.user_name} | ${new Date(message.created_at).toLocaleString()}</div>
+                ${message.image_url ? `<img src="${message.image_url}" alt="Image">` : ''}
             `;
             messagesDiv.appendChild(messageElement);
         });
-        // Scroll to the bottom after messages are displayed
         scrollToBottom();
     }
+
 
     // Function to display messages
     function displayMessages2(messages) {
         messagesDiv.innerHTML = '';
         messages.forEach(message => {
-            const userColor = getUserColor(message.user_name || 'Anonymous');
             const messageElement = document.createElement('div');
-            messageElement.className = 'message';
-            messageElement.style.backgroundColor = userColor; // Apply user-specific color
+            messageElement.classList.add('message');
+            messageElement.style.color = userColorMap[message.user_name] || '#ffffff';
+            
             messageElement.innerHTML = `
                 <div class="content">${message.content}</div>
-                <div class="details">By ${message.user_name || 'Anonymous'} on ${new Date(message.created_at).toLocaleString()}</div>
+                <div class="details">${message.user_name} | ${new Date(message.created_at).toLocaleString()}</div>
+                ${message.image_url ? `<img src="${message.image_url}" alt="Image">` : ''}
             `;
             messagesDiv.appendChild(messageElement);
         });
+        scrollToBottom();
     }
     
     // Function to load more messages
@@ -137,26 +141,42 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
     }
     
-    // Function to send a message
     async function sendMessage() {
         const content = messageInput.value;
-        const userName = userNameInput.value || 'Anonymous';
-
-        if (content) {
+        const userName = document.getElementById('user-name').value || 'Anonymous';
+        let imageUrl = null;
+    
+        // آپلود عکس اگر انتخاب شده باشد
+        if (imageInput.files.length > 0) {
+            const file = imageInput.files[0];
+            const fileName = `${Date.now()}_${file.name}`;
+            const { data, error: uploadError } = await supabase.storage
+                .from('images')
+                .upload(fileName, file);
+    
+            if (uploadError) {
+                console.error('Error uploading image:', uploadError);
+                return;
+            }
+    
+            imageUrl = `${supabase.storage.from('images').getPublicUrl(fileName).data.publicUrl}`;
+        }
+    
+        if (content || imageUrl) {
             const { data, error } = await supabase
                 .from('messages')
-                .insert([{ content, user_name: userName }]);
-
+                .insert([{ content, user_name: userName, image_url: imageUrl }]);
+    
             if (error) {
                 console.error('Error sending message:', error);
             } else {
                 messageInput.value = '';
+                imageInput.value = ''; // پاک کردن فایل ورودی
                 fetchMessages();
-                // Scroll to the bottom after sending a message
-                scrollToBottom();
             }
         }
     }
+
     
     // Event listeners
     refreshBtn.addEventListener('click', () => fetchMessages());
