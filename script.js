@@ -15,44 +15,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
     
     let lastFetchedMessageId = null;
     
-    // Function to fetch messages
-    async function fetchMessages(limit = 10) {
-        const { data, error } = await supabase
-            .from('messages')
-            .select('*')
-            .order('created_at', { ascending: false })
-            .limit(limit);
-
-        if (error) {
-            console.error('Error fetching messages:', error);
-        } else {
-            displayMessages(data.reverse());
-            if (data.length > 0) {
-                lastFetchedMessageId = data[0].id;
-            }
-        }
-    }
-
-
-    // Function to fetch messages
-    async function fetchMessages2(limit = 10) {
-        const { data, error } = await supabase
-            .from('messages')
-            .select('*')
-            .order('created_at', { ascending: false })
-            .limit(limit);
-
-        if (error) {
-            console.error('Error fetching messages:', error);
-        } else {
-            displayMessages2(data.reverse());
-            if (data.length > 0) {
-                lastFetchedMessageId = data[0].id;
-            }
-        }
-    }
-    
-
     // Define a list of darker color themes
     const colorThemes = [
         '#340c04', // red
@@ -80,8 +42,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         return userColor;
     }
 
-        function scrollToBottom() {
-        const messagesDiv = document.getElementById('messages');
+    function scrollToBottom() {
         messagesDiv.scrollTop = messagesDiv.scrollHeight;
     }
     
@@ -91,7 +52,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         messages.forEach(message => {
             const messageElement = document.createElement('div');
             messageElement.classList.add('message');
-            messageElement.style.color = userColorMap[message.user_name] || '#ffffff';
+            messageElement.style.color = getUserColor(message.user_name); // استفاده از getUserColor
             
             messageElement.innerHTML = `
                 <div class="content">${message.content}</div>
@@ -103,14 +64,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
         scrollToBottom();
     }
 
-
-    // Function to display messages
+    // Function to display messages2
     function displayMessages2(messages) {
         messagesDiv.innerHTML = '';
         messages.forEach(message => {
             const messageElement = document.createElement('div');
             messageElement.classList.add('message');
-            messageElement.style.color = userColorMap[message.user_name] || '#ffffff';
+            messageElement.style.color = getUserColor(message.user_name); // استفاده از getUserColor
             
             messageElement.innerHTML = `
                 <div class="content">${message.content}</div>
@@ -119,7 +79,42 @@ document.addEventListener('DOMContentLoaded', (event) => {
             `;
             messagesDiv.appendChild(messageElement);
         });
-        scrollToBottom();
+    }
+    
+    // Function to fetch messages
+    async function fetchMessages(limit = 10) {
+        const { data, error } = await supabase
+            .from('messages')
+            .select('*')
+            .order('created_at', { ascending: false })
+            .limit(limit);
+
+        if (error) {
+            console.error('Error fetching messages:', error);
+        } else {
+            displayMessages(data.reverse());
+            if (data.length > 0) {
+                lastFetchedMessageId = data[0].id;
+            }
+        }
+    }
+    
+    // Function to fetch messages2
+    async function fetchMessages2(limit = 10) {
+        const { data, error } = await supabase
+            .from('messages')
+            .select('*')
+            .order('created_at', { ascending: false })
+            .limit(limit);
+
+        if (error) {
+            console.error('Error fetching messages:', error);
+        } else {
+            displayMessages2(data.reverse());
+            if (data.length > 0) {
+                lastFetchedMessageId = data[0].id;
+            }
+        }
     }
     
     // Function to load more messages
@@ -143,7 +138,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     
     async function sendMessage() {
         const content = messageInput.value;
-        const userName = document.getElementById('user-name').value || 'Anonymous';
+        const userName = userNameInput.value || 'Anonymous';
         let imageUrl = null;
     
         // آپلود عکس اگر انتخاب شده باشد
@@ -177,7 +172,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
     }
 
-    
     // Event listeners
     refreshBtn.addEventListener('click', () => fetchMessages());
     loadMoreBtn.addEventListener('click', () => loadMoreMessages());
@@ -190,6 +184,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     setInterval(fetchMessages2, 5000);
 
 });
+
 
 
 // document.addEventListener('DOMContentLoaded', (event) => {
