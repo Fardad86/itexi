@@ -4,6 +4,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFnZ2xmdHVucmh3Ym1xZ3VwdXhyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjUyMjM5OTgsImV4cCI6MjA0MDc5OTk5OH0.Spp3SuzpO3oEA6ynJeDDHt-FbLfUKIUYgFH9U6obY2Y';
     window.supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
+    // بازیابی نام کاربر از Local Storage
+    const savedUserName = localStorage.getItem('userName');
+    if (savedUserName) {
+        document.getElementById('user-name').value = savedUserName;
+    }
+
     // Elements
     const messagesDiv = document.getElementById('messages');
     const refreshBtn = document.getElementById('refresh');
@@ -139,6 +145,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
     async function sendMessage() {
         const content = messageInput.value;
         const userName = document.getElementById('user-name').value || 'Anonymous';
+
+        // ذخیره کردن نام کاربر در Local Storage
+        localStorage.setItem('userName', userName);
     
         if (content) {
             const { data, error } = await supabase
