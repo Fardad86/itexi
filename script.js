@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
     
     // Function to fetch messages2
-    async function fetchMessages2(limit = 10) {
+    async function fetchMessages2(limit = 100) {
         const { data, error } = await supabase
             .from('messages')
             .select('*')
@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
     
     // Function to load more messages
-    async function fetchMessages2(limit = 500) {
+    async function loadMoreMessages(limit = 500) {
         const { data, error } = await supabase
             .from('messages')
             .select('*')
