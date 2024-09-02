@@ -139,39 +139,22 @@ document.addEventListener('DOMContentLoaded', (event) => {
     
     async function sendMessage() {
         const content = messageInput.value;
-        const userName = userNameInput.value || 'Anonymous';
-        let imageUrl = null;
+        const userName = document.getElementById('user-name').value || 'Anonymous';
     
-        // آپلود عکس اگر انتخاب شده باشد
-        if (imageInput.files.length > 0) {
-            const file = imageInput.files[0];
-            const fileName = `${Date.now()}_${file.name}`;
-            const { data, error: uploadError } = await supabase.storage
-                .from('images')
-                .upload(fileName, file);
-    
-            if (uploadError) {
-                console.error('Error uploading image:', uploadError);
-                return;
-            }
-    
-            imageUrl = `${supabase.storage.from('images').getPublicUrl(fileName).data.publicUrl}`;
-        }
-    
-        if (content || imageUrl) {
+        if (content) {
             const { data, error } = await supabase
                 .from('messages')
-                .insert([{ content, user_name: userName, image_url: imageUrl }]);
+                .insert([{ content, user_name: userName }]);
     
             if (error) {
                 console.error('Error sending message:', error);
             } else {
                 messageInput.value = '';
-                imageInput.value = ''; // پاک کردن فایل ورودی
                 fetchMessages();
             }
         }
     }
+
 
     // Event listeners
     refreshBtn.addEventListener('click', () => fetchMessages());
