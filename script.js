@@ -116,6 +116,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
             } else {
                 messageInput.value = '';
                 fetchMessages();
+                // Scroll to the bottom after sending a message
+                scrollToBottom();
             }
         }
     }
