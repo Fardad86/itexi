@@ -46,14 +46,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
         messagesDiv.scrollTop = messagesDiv.scrollHeight;
     }
     
-    // Function to display messages
     function displayMessages(messages) {
         messagesDiv.innerHTML = '';
         messages.forEach(message => {
             const messageElement = document.createElement('div');
             messageElement.classList.add('message');
-            messageElement.style.color = getUserColor(message.user_name); // استفاده از getUserColor
-            
+            messageElement.style.backgroundColor = getUserColor(message.user_name); // رنگ پس‌زمینه
+    
             messageElement.innerHTML = `
                 <div class="content">${message.content}</div>
                 <div class="details">${message.user_name} | ${new Date(message.created_at).toLocaleString()}</div>
@@ -63,6 +62,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         });
         scrollToBottom();
     }
+    
 
     // Function to display messages2
     function displayMessages2(messages) {
@@ -70,8 +70,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
         messages.forEach(message => {
             const messageElement = document.createElement('div');
             messageElement.classList.add('message');
-            messageElement.style.color = getUserColor(message.user_name); // استفاده از getUserColor
-            
+            messageElement.style.backgroundColor = getUserColor(message.user_name); // رنگ پس‌زمینه
+    
             messageElement.innerHTML = `
                 <div class="content">${message.content}</div>
                 <div class="details">${message.user_name} | ${new Date(message.created_at).toLocaleString()}</div>
@@ -80,6 +80,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             messagesDiv.appendChild(messageElement);
         });
     }
+
     
     // Function to fetch messages
     async function fetchMessages(limit = 10) {
