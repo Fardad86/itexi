@@ -59,6 +59,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
         return userColor;
     }
 
+        function scrollToBottom() {
+        const messagesDiv = document.getElementById('messages');
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
     
     // Function to display messages
     function displayMessages(messages) {
@@ -74,6 +78,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
             `;
             messagesDiv.appendChild(messageElement);
         });
+        // Scroll to the bottom after messages are displayed
+        scrollToBottom();
     }
     
     // Function to load more messages
