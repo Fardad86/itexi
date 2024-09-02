@@ -22,6 +22,7 @@ body, .message {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Darker shadow for better contrast */
 }
 
+/* Styling for messages container */
 #messages {
     height: 400px;
     overflow-y: auto;
@@ -32,14 +33,23 @@ body, .message {
     border-radius: 5px;
 }
 
-#message-input {
-    width: calc(100% - 100px);
+/* Styling for message input and send button container */
+.message-input-container {
+    display: flex;
+    align-items: flex-start; /* Align items to the start */
+    margin-top: 20px;
+}
+
+textarea {
+    flex: 1; /* Make textarea take up remaining space */
     padding: 10px;
-    margin-right: 10px;
     background: #333; /* Dark background for input */
     color: #e0e0e0; /* Light text color */
     border: 1px solid #444; /* Darker border */
     border-radius: 5px;
+    resize: vertical; /* Allow vertical resizing only */
+    min-height: 100px; /* Minimum height for textarea */
+    margin-right: 10px; /* Space between textarea and button */
 }
 
 button {
@@ -88,12 +98,17 @@ button:hover {
 
 /* Responsive design for mobile */
 @media (max-width: 768px) {
-    #message-input {
-        width: calc(100% - 80px); /* Adjust width for smaller screens */
+    .message-input-container {
+        flex-direction: column; /* Stack textarea and button vertically */
+    }
+
+    textarea {
+        width: 100%; /* Full width for smaller screens */
+        margin-right: 0; /* Remove margin in column layout */
     }
 
     button {
         width: 100%;
-        margin-top: 10px; /* Stack buttons on small screens */
+        margin-top: 10px; /* Space between textarea and button */
     }
 }
