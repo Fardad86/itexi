@@ -47,8 +47,11 @@ textarea {
     color: #e0e0e0; /* Light text color */
     border: 1px solid #444; /* Darker border */
     border-radius: 5px;
-    resize: vertical; /* Allow vertical resizing only */
-    min-height: 100px; /* Minimum height for textarea */
+    resize: none; /* Disable resizing */
+    height: 30px; /* Initial height to accommodate one line */
+    max-height: 60px; /* Max height to accommodate two lines */
+    overflow-y: auto; /* Allow vertical scrolling if content exceeds max-height */
+    line-height: 1.5; /* Set line height for text */
     margin-right: 10px; /* Space between textarea and button */
 }
 
