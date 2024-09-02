@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     
     // Function to fetch messages
-    async function fetchMessages(limit = 10) {
+    async function fetchMessages(limit = 100) {
         const { data, error } = await supabase
             .from('messages')
             .select('*')
@@ -119,18 +119,17 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
     
     // Function to load more messages
-    async function loadMoreMessages() {
+    async function fetchMessages2(limit = 500) {
         const { data, error } = await supabase
             .from('messages')
             .select('*')
             .order('created_at', { ascending: false })
-            .limit(100)
-            .lt('id', lastFetchedMessageId);
+            .limit(limit);
 
         if (error) {
-            console.error('Error loading more messages:', error);
+            console.error('Error fetching messages:', error);
         } else {
-            displayMessages(data.reverse());
+            displayMessages2(data.reverse());
             if (data.length > 0) {
                 lastFetchedMessageId = data[0].id;
             }
