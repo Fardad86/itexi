@@ -129,6 +129,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     
     // Initial fetch
     fetchMessages();
+
+    // Auto refresh every 5 seconds
+    setInterval(fetchMessages, 5000);
+
 });
 
 
