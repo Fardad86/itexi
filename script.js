@@ -32,6 +32,26 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
     }
 
+
+    // Function to fetch messages
+    async function fetchMessages2(limit = 10) {
+        const { data, error } = await supabase
+            .from('messages')
+            .select('*')
+            .order('created_at', { ascending: false })
+            .limit(limit);
+
+        if (error) {
+            console.error('Error fetching messages:', error);
+        } else {
+            displayMessages2(data.reverse());
+            if (data.length > 0) {
+                lastFetchedMessageId = data[0].id;
+            }
+        }
+    }
+    
+
     // Define a list of darker color themes
     const colorThemes = [
         '#340c04', // red
@@ -80,6 +100,22 @@ document.addEventListener('DOMContentLoaded', (event) => {
         });
         // Scroll to the bottom after messages are displayed
         scrollToBottom();
+    }
+
+    // Function to display messages
+    function displayMessages2(messages) {
+        messagesDiv.innerHTML = '';
+        messages.forEach(message => {
+            const userColor = getUserColor(message.user_name || 'Anonymous');
+            const messageElement = document.createElement('div');
+            messageElement.className = 'message';
+            messageElement.style.backgroundColor = userColor; // Apply user-specific color
+            messageElement.innerHTML = `
+                <div class="content">${message.content}</div>
+                <div class="details">By ${message.user_name || 'Anonymous'} on ${new Date(message.created_at).toLocaleString()}</div>
+            `;
+            messagesDiv.appendChild(messageElement);
+        });
     }
     
     // Function to load more messages
@@ -131,7 +167,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     fetchMessages();
 
     // Auto refresh every 5 seconds
-    setInterval(fetchMessages, 5000);
+    setInterval(fetchMessages2, 5000);
 
 });
 
