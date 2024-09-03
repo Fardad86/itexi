@@ -121,6 +121,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 displayMessages2(data); // اضافه کردن پیام‌های جدید به لیست موجود
             }
         }
+        scrollToBottom();
     }
     
     async function sendMessage() {
@@ -142,6 +143,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 fetchNewMessages(); // پس از ارسال پیام، پیام‌های جدید را بگیر
             }
         }
+        
     }
 
     // Event listeners
