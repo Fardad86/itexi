@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     fetchMessages();
 
     // Auto fetch new messages every 5 seconds
-    setInterval(fetchNewMessages, 5000);
+    setInterval(fetchNewMessages, 1000);
 
 });
 
