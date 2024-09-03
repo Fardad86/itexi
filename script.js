@@ -118,6 +118,31 @@ document.addEventListener('DOMContentLoaded', (event) => {
             if (data.length > 0) {
                 // به‌روز رسانی شناسه آخرین پیام لود شده
                 lastFetchedMessageId = data[data.length - 1].id;
+                displayMessages(data); // اضافه کردن پیام‌های جدید به لیست موجود
+            }
+        }
+    }
+
+    // Fetch new messages2 - دریافت پیام‌های جدیدتر از آخرین پیام لود شده
+    async function fetchNewMessages2() {
+        let query = supabase
+            .from('messages')
+            .select('*')
+            .order('created_at', { ascending: true });
+
+        // اگر شناسه آخرین پیام لود شده وجود داشته باشد، فقط پیام‌های جدیدتر را دریافت کن
+        if (lastFetchedMessageId) {
+            query = query.gt('id', lastFetchedMessageId);
+        }
+
+        const { data, error } = await query;
+
+        if (error) {
+            console.error('Error fetching new messages:', error);
+        } else {
+            if (data.length > 0) {
+                // به‌روز رسانی شناسه آخرین پیام لود شده
+                lastFetchedMessageId = data[data.length - 1].id;
                 displayMessages2(data); // اضافه کردن پیام‌های جدید به لیست موجود
             }
         }
@@ -141,7 +166,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 messageInput.value = '';
                 fetchNewMessages(); // پس از ارسال پیام، پیام‌های جدید را بگیر
             }
-            scrollToBottom();
         }
     }
 
@@ -154,7 +178,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     fetchMessages();
 
     // Auto fetch new messages every 5 seconds
-    setInterval(fetchNewMessages, 1000);
+    setInterval(fetchNewMessages2, 1000);
 
 });
 
