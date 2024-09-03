@@ -141,8 +141,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 messageInput.value = '';
                 fetchNewMessages(); // پس از ارسال پیام، پیام‌های جدید را بگیر
             }
+            scrollToBottom();
         }
-        scrollToBottom();
     }
 
     // Event listeners
